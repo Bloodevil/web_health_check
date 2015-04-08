@@ -16,14 +16,14 @@ def use_httplib():
         print 'start:', start
 
         conn = httplib.HTTPConnection('www.stackoverflow.com')
-        conn.request('GET', '/')    # GET, HEAD, POST, ....
+        conn.request('GET', '/')  # GET, HEAD, POST, ....
 
         # Should be called after a request is sent to get the response from the server.
         # Returns an HTTPResponse instance.
         res = conn.getresponse()
 
         # netstat -napc | grep :80
-        conn.close()    # Close the connection to the server
+        conn.close()  # Close the connection to the server
 
         data = res.read()
         print 'data:', data
@@ -50,7 +50,7 @@ def use_urllib():
         start = time.time()
         print 'start:', start
 
-        res = urllib.urlopen("http://www.stackoverflow.com")
+        res = urllib.urlopen('http://www.stackoverflow.com')
         end = time.time()
         print 'end:', end
 
@@ -68,15 +68,56 @@ def use_urllib():
 
     except Exception as e:
         print 'Error:', e
+
+    print '#' * 30 + '\n\n'
+
+
+def use_urllib2():
+    print '#' * 30
+    print '# Use urllib2 #'
+
+    try:
+        start = time.time()
+        print 'start:', start
+
+        url = 'http://www.stackoverflow.com'
+        values = {'name': 'Michael Foord',
+                  'location': 'Northampton',
+                  'language': 'Python'}
+        data = urllib.urlencode(values)
+        req = urllib2.Request(url, data)
+        req.add_header('Referer', 'http://www.python.org/')     # can assemble header
+
+        # Open the URL url, which can be either a string or a Request object.
+        # res = urllib2.urlopen(url, data)
+        res = urllib2.urlopen(req)
+
+        end = time.time()
+        print 'end:', end
+
+        print dir(res)
+        print 'info:', res.info()
+        print 'headers:', res.headers
+        print 'geturl:', res.geturl()
+        print 'code:', res.getcode()
+        print 'msg:', res.msg   # add msg in urllib2
+        # print 'data:', res.read()  #
+
+        res.close()
+
+        elapsed_time = end - start
+        print 'elapsed_time:', elapsed_time
+
+    except Exception as e:
+        print 'Error:', e
+
     print '#' * 30 + '\n\n'
 
 
 def main():
     use_httplib()
     use_urllib()
-
-
-
+    use_urllib2()
 
 
 if __name__ == '__main__':
