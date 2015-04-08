@@ -1,6 +1,7 @@
 import httplib
 import urllib
 import urllib2
+import requests
 import time
 
 
@@ -43,6 +44,9 @@ def use_httplib():
 
 
 def use_urllib():
+    """Use urllib module
+    refer : https://docs.python.org/2/library/urllib.html
+    """
     print '#' * 30
     print '# Use urllib #'
 
@@ -73,6 +77,9 @@ def use_urllib():
 
 
 def use_urllib2():
+    """Use urllib2 module
+    refer : https://docs.python.org/2/library/urllib2.html
+    """
     print '#' * 30
     print '# Use urllib2 #'
 
@@ -114,10 +121,50 @@ def use_urllib2():
     print '#' * 30 + '\n\n'
 
 
+def use_requests():
+    """Use requests module
+    refer : http://docs.python-requests.org/
+    """
+    print '#' * 30
+    print '# Use requests #'
+
+    try:
+        start = time.time()
+        print 'start:', start
+
+        username = ''
+        password = ''
+        res = requests.get('https://api.github.com/user', auth=(username, password))
+        end = time.time()
+        print 'end:', end
+
+        print 'res:', dir(res)
+
+        print 'content-type:', res.headers['content-type']
+        print 'headers:', res.headers
+        print 'encoding:', res.encoding
+        print 'text:', res.text
+        print 'status code:', res.status_code
+        print 'reason:', res.reason
+        print 'elapsed:', res.elapsed
+        #print 'elapsed:', dir(res.elapsed)
+        #print 'elapsed:', res.elapsed.seconds
+        print 'elapsed:', res.elapsed.total_seconds()
+
+        elapsed_time = end - start
+        print 'elapsed_time:', elapsed_time
+
+    except Exception as e:
+        print 'Error:', e
+
+    print '#' * 30 + '\n\n'
+
+
 def main():
     use_httplib()
     use_urllib()
     use_urllib2()
+    use_requests()
 
 
 if __name__ == '__main__':
