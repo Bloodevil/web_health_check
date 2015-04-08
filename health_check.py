@@ -1,5 +1,6 @@
 import httplib
 import urllib
+import urllib2
 import time
 
 
@@ -44,21 +45,20 @@ def use_urllib():
     print 'start:', start
 
     res = urllib.urlopen("http://www.stackoverflow.com")
-    print dir(res)
-    print res.fileno
-    print dir(res.fileno)
-    print res.fp
-    print dir(res.fp)
-    print res.getcode()
-    print res.headers
-
-
-
     end = time.time()
     print 'end:', end
+
+    print dir(res)
+    print 'info:', res.info()
+    print 'headers:', res.headers
+    print 'geturl:', res.geturl()
+    print 'code:', res.getcode()
+    # print 'data:', res.read()  #
+
+    res.close()
+
     diff = end - start
     print 'diff:', diff
-
     print '#' * 30 + '\n\n'
 
 
