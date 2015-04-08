@@ -11,29 +11,34 @@ def use_httplib():
     print '#' * 30
     print '# Use httplib #'
 
-    start = time.time()
-    print 'start:', start
+    try:
+        start = time.time()
+        print 'start:', start
 
-    conn = httplib.HTTPConnection('www.stackoverflow.com')
-    conn.request('GET', '/')    # GET, HEAD, POST, ....
+        conn = httplib.HTTPConnection('www.stackoverflow.com')
+        conn.request('GET', '/')    # GET, HEAD, POST, ....
 
-    # Should be called after a request is sent to get the response from the server.
-    # Returns an HTTPResponse instance.
-    res = conn.getresponse()
+        # Should be called after a request is sent to get the response from the server.
+        # Returns an HTTPResponse instance.
+        res = conn.getresponse()
 
-    # netstat -napc | grep :80
-    conn.close()    # Close the connection to the server
+        # netstat -napc | grep :80
+        conn.close()    # Close the connection to the server
 
-    data = res.read()
-    print 'data:', data
+        data = res.read()
+        print 'data:', data
 
-    end = time.time()
-    print 'end:', end
+        end = time.time()
+        print 'end:', end
 
-    elapsed_time = end - start
-    print 'elapsed_time:', elapsed_time
+        elapsed_time = end - start
+        print 'elapsed_time:', elapsed_time
 
-    print res.status, ':', res.reason
+        print res.status, ':', res.reason
+
+    except Exception as e:
+        print 'Error:', e
+
     print '#' * 30 + '\n\n'
 
 
@@ -41,24 +46,28 @@ def use_urllib():
     print '#' * 30
     print '# Use urllib #'
 
-    start = time.time()
-    print 'start:', start
+    try:
+        start = time.time()
+        print 'start:', start
 
-    res = urllib.urlopen("http://www.stackoverflow.com")
-    end = time.time()
-    print 'end:', end
+        res = urllib.urlopen("http://www.stackoverflow.com")
+        end = time.time()
+        print 'end:', end
 
-    print dir(res)
-    print 'info:', res.info()
-    print 'headers:', res.headers
-    print 'geturl:', res.geturl()
-    print 'code:', res.getcode()
-    # print 'data:', res.read()  #
+        print dir(res)
+        print 'info:', res.info()
+        print 'headers:', res.headers
+        print 'geturl:', res.geturl()
+        print 'code:', res.getcode()
+        # print 'data:', res.read()  #
 
-    res.close()
+        res.close()
 
-    diff = end - start
-    print 'diff:', diff
+        elapsed_time = end - start
+        print 'elapsed_time:', elapsed_time
+
+    except Exception as e:
+        print 'Error:', e
     print '#' * 30 + '\n\n'
 
 
